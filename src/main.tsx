@@ -5,7 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
 import "./index.css";
 
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  basepath: "/spotify-alt-player",
+});
 
 declare module "@tanstack/react-router" {
   interface Register {
