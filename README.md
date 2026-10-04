@@ -1,4 +1,4 @@
-# spotify / alt player
+# Spotify / alt player
 
 An alternative Spotify player: familiar features with a different design.
 
@@ -17,13 +17,12 @@ learning and portfolio purposes.
 
 To use the app, you need to follow the link and open Spotify on your device (the tracks will be played through it).
 
-**Link:** https://demo-link.com
+**Link:** https://akht21.github.io/spotify-alt-player/
 
 ## Features
 
-- Sign in with Spotify (OAuth 2.0 + PKCE)
-- Playback control
-- Browse your playlists
-- Browse your tracks
-- Customize theme
-- Big playback mode
+- Secure Spotify login (OAuth 2.0 + PKCE)
+- Real-time playback and queue controls
+- Browse playlists and saved tracks
+- Full-screen / Focus playback mode
+- Customizable UI themes
