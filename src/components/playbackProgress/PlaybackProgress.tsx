@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchPlaybackSeek } from "../../services/api/player";
 import styles from "./playbackProgress.module.css";
@@ -26,10 +26,10 @@ const PlaybackProgress = ({ progressMs, durationMs, isPlaying }: Props) => {
   const [displayedProgressMs, setDisplayedProgressMs] = useState(progressMs);
   const [isDragging, setIsDragging] = useState(false);
 
-  const invalidate = async () => {
+  const invalidate = useCallback(async () => {
     await new Promise((resolve) => setTimeout(resolve, 400));
     await queryClient.invalidateQueries({ queryKey: ["playback-state"] });
-  };
+  }, [queryClient]);
 
   // synchronize Spotify
   useEffect(() => {
@@ -61,8 +61,8 @@ const PlaybackProgress = ({ progressMs, durationMs, isPlaying }: Props) => {
       return;
     }
 
-    invalidate();
-  }, [displayedProgressMs, durationMs, isDragging, isPlaying, queryClient]);
+    void invalidate();
+  }, [displayedProgressMs, durationMs, isDragging, isPlaying, invalidate]);
 
   const seekMutation = useMutation({
     mutationFn: fetchPlaybackSeek,

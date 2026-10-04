@@ -2,7 +2,6 @@ import { useState } from "react";
 import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router";
 import { isAuthenticated } from "../../services/auth";
 import usePlayback from "../../hooks/usePlayback";
-import ThemeProvider from "../../context/themeProvider";
 import UserProfilePreview from "../../components/userProfilePreview";
 import Playback from "../../components/playback";
 import ActiveDevice from "../../components/activeDevice";
