@@ -12,23 +12,23 @@ interface Props {
 }
 
 const Playback = ({ onToggleExpand }: Props) => {
-  const { data, isLoading } = usePlayback((playbackData) => ({
+  const { data, isLoading, isError } = usePlayback((playbackData) => ({
     item: playbackData?.item,
     isPlaying: playbackData?.is_playing,
     progressMs: playbackData?.progress_ms,
     device: playbackData?.device,
   }));
 
-  if (isLoading) {
-    return <Skeleton />;
-  }
-
-  if (data?.device == undefined) {
+  if (isError || (data && data.device === undefined)) {
     return (
       <div className={styles.player}>
         <div className={styles.no_player}>playback not found</div>
       </div>
     );
+  }
+
+  if (isLoading || !data) {
+    return <Skeleton />;
   }
 
   return (
