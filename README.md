@@ -13,12 +13,6 @@ Spotify Alt Player is a web client for Spotify that implements some of the servi
 It's a **pet project** — not affiliated with Spotify, not commercial, built for
 learning and portfolio purposes.
 
-## Demo
-
-To use the app, you need to follow the link and open Spotify on your device (the tracks will be played through it).
-
-**Link:** https://akht21.github.io/spotify-alt-player/
-
 ## Features
 
 - Secure Spotify login (OAuth 2.0 + PKCE)
@@ -26,3 +20,21 @@ To use the app, you need to follow the link and open Spotify on your device (the
 - Browse playlists and saved tracks
 - Full-screen / Focus playback mode
 - Customizable UI themes
+
+## Demo
+
+To try the app, open the link below and make sure Spotify is running on your device — playback happens through your active Spotify client.
+
+**Link:** https://akht21.github.io/spotify-alt-player/
+
+> ⚠️ The app is currently in Spotify **Development Mode**, so only users added to the allowlist can authenticate. If you'd like access, reach out or run it locally with your own Spotify credentials.
+
+## Running Locally
+
+1. **Clone the repo and create a `.env` file** in the project root with your Spotify credentials. See `.env.example` for reference.
+2. **Install dependencies and start the dev server:**
+
+   ```bash
+   npm install
+   npm run dev
+   ```
