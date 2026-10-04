@@ -1,4 +1,4 @@
-import styles from "./ShuffleIcon.module.css";
+import styles from "./shuffleIcon.module.css";
 
 interface Props {
   width: string;
