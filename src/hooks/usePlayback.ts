@@ -7,7 +7,6 @@ const usePlayback = <T = PlaybackState>(select?: (data: PlaybackState) => T) => 
     queryKey: ["playback-state"],
     queryFn: fetchPlaybackState,
     refetchInterval: (query) => {
-      console.log(query.state);
       if (query.state.status === "error") {
         return false;
       }
