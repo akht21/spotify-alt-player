@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Playback = ({ onToggleExpand }: Props) => {
-  const { data, isLoading, isError } = usePlayback((playbackData) => ({
+  const { data, isPending, isError } = usePlayback((playbackData) => ({
     item: playbackData?.item,
     isPlaying: playbackData?.is_playing,
     progressMs: playbackData?.progress_ms,
@@ -27,7 +27,7 @@ const Playback = ({ onToggleExpand }: Props) => {
     );
   }
 
-  if (isLoading || !data) {
+  if (isPending || !data) {
     return <Skeleton />;
   }
 
