@@ -22,13 +22,13 @@ export const Route = createFileRoute("/_authenticated")({
 
 function AuthenticatedLayout() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { data, isLoading } = usePlayback((playbackData) => ({
+  const { data, isLoading, isError } = usePlayback((playbackData) => ({
     device: playbackData?.device,
   }));
 
   return (
     <div className={styles.wrapper}>
-      {!isLoading && data?.device === undefined ? <ActiveDevice /> : null}
+      {!isLoading && !isError && data?.device === undefined ? <ActiveDevice /> : null}
 
       <div className={styles.app}>
         <div className={styles.header_wrapper}>

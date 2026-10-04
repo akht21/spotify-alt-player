@@ -63,9 +63,9 @@ const usePlaybackActions = () => {
     mutationFn: ({ deviceId, isPlaying = false }: { deviceId: string; isPlaying?: boolean }) =>
       fetchTransferPlayback(deviceId, isPlaying),
     onSuccess: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
+      await new Promise((resolve) => setTimeout(resolve, 400));
       queryClient.invalidateQueries({ queryKey: ["devices"] });
+      queryClient.invalidateQueries({ queryKey: ["playback-state"] });
     },
   });
 
