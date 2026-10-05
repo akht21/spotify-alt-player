@@ -25,7 +25,7 @@ learning and portfolio purposes.
 
 To try the app, open the link below and make sure Spotify is running on your device — playback happens through your active Spotify client.
 
-**Link:** akht21.github.io/spotify-alt-player/
+**Link:** [akht21.github.io/spotify-alt-player](https://akht21.github.io/spotify-alt-player/)
 
 > ⚠️ The app is currently in Spotify **Development Mode**, so only users added to the allowlist can authenticate. If you'd like access, reach out or run it locally with your own Spotify credentials.
 
