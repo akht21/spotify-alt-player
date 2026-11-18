@@ -14,20 +14,20 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
-import { Route as AuthenticatedPlaylistUriRouteImport } from './routes/_authenticated/playlist/$uri'
 import { Route as AuthenticatedThemeThemeRouteImport } from './routes/_authenticated/_theme/theme'
+import { Route as AuthenticatedPlaylistUriRouteImport } from './routes/_authenticated/playlist/$uri'
 
 const PreviewLazyRouteImport = createFileRoute('/preview')()
 
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PreviewLazyRoute = PreviewLazyRouteImport.update({
   id: '/preview',
   path: '/preview',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/preview.lazy').then((d) => d.Route))
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -38,17 +38,17 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedThemeThemeRoute = AuthenticatedThemeThemeRouteImport.update({
+  id: '/_theme/theme',
+  path: '/theme',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPlaylistUriRoute =
   AuthenticatedPlaylistUriRouteImport.update({
     id: '/playlist/$uri',
     path: '/playlist/$uri',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedThemeThemeRoute = AuthenticatedThemeThemeRouteImport.update({
-  id: '/_theme/theme',
-  path: '/theme',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -96,18 +96,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/preview': {
-      id: '/preview'
-      path: '/preview'
-      fullPath: '/preview'
-      preLoaderRoute: typeof PreviewLazyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview': {
+      id: '/preview'
+      path: '/preview'
+      fullPath: '/preview'
+      preLoaderRoute: typeof PreviewLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/': {
@@ -124,18 +124,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/playlist/$uri': {
-      id: '/_authenticated/playlist/$uri'
-      path: '/playlist/$uri'
-      fullPath: '/playlist/$uri'
-      preLoaderRoute: typeof AuthenticatedPlaylistUriRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/_theme/theme': {
       id: '/_authenticated/_theme/theme'
       path: '/theme'
       fullPath: '/theme'
       preLoaderRoute: typeof AuthenticatedThemeThemeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/playlist/$uri': {
+      id: '/_authenticated/playlist/$uri'
+      path: '/playlist/$uri'
+      fullPath: '/playlist/$uri'
+      preLoaderRoute: typeof AuthenticatedPlaylistUriRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }

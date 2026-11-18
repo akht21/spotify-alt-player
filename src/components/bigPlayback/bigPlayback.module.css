@@ -1,10 +1,14 @@
+body:has(.playback_wrapper_open) {
+  overflow: hidden;
+}
+
 .playback_wrapper {
   width: 100%;
-  height: 100%;
   position: fixed;
   inset: 0;
   z-index: 11;
   background-color: #121212;
+
   display: flex;
   align-items: center;
 
@@ -18,6 +22,7 @@
   -webkit-overflow-scrolling: touch;
 
   transition:
+    background-color 0.8s ease,
     opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     visibility 0s linear 0.4s;
@@ -54,7 +59,9 @@
   padding: 0.8rem;
   border-radius: 1.6rem;
   background-color: var(--background-color);
-  transition: 0.4s;
+  transition:
+    background-color 0.4s,
+    opacity 0.4s ease;
 }
 
 .minimize_icon {
@@ -78,12 +85,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.8rem;
-}
-
-.cover {
-  height: calc(min(60vh, 90vw));
-  border-radius: 2rem;
+  gap: 1.2rem;
+  margin-top: 3.8rem;
 }
 
 .info {
@@ -102,12 +105,23 @@
 }
 
 .controllers_wrapper {
-  margin-top: 1.2rem;
+  margin-top: 0.5rem;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.8rem;
+  transition: opacity 0.4s ease;
+}
+
+.playback_wrapper_idle {
+  cursor: none;
+}
+
+.playback_wrapper_idle .minimize_button,
+.playback_wrapper_idle .controllers_wrapper {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .no_track_range {

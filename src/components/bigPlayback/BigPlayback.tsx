@@ -1,8 +1,12 @@
+import { useEffect } from "react";
+import useAccentColor from "../../hooks/useAccentColor";
+import useIdle from "../../hooks/useIdle.ts";
 import usePlayback from "../../hooks/usePlayback";
 import minimiseIcon from "../../assets/icons/minimise.svg";
-import styles from "./bigPlayback.module.css";
 import PlaybackControllers from "../playbackControllers";
 import PlaybackProgress from "../playbackProgress";
+import Cover from "./cover";
+import styles from "./bigPlayback.module.css";
 
 interface Props {
   isExpanded: boolean;
@@ -17,16 +21,40 @@ const BigPlayback = ({ isExpanded, onToggleExpand }: Props) => {
     device: playbackData?.device,
   }));
 
-  if (!data || !data.item) return;
+  const backgroundColor = useAccentColor(data?.item?.album.images[0]?.url);
+  const isIdle = useIdle(4000, isExpanded);
+
+  useEffect(() => {
+    if (!isExpanded) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onToggleExpand();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isExpanded, onToggleExpand]);
+
+  if (!data || !data.item) return null;
+
+  const wrapperClass = [
+    styles.playback_wrapper,
+    isExpanded && styles.playback_wrapper_open,
+    isIdle && styles.playback_wrapper_idle,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <div className={`${styles.playback_wrapper} ${isExpanded && styles.playback_wrapper_open}`}>
+    <div className={wrapperClass} style={{ backgroundColor }}>
       <div className={styles.container}>
         <button className={styles.minimize_button} onClick={onToggleExpand}>
           <img className={styles.minimize_icon} src={minimiseIcon} alt="" />
         </button>
         <div className={styles.playback}>
-          <img className={styles.cover} src={data.item.album.images[0].url} alt="" />
+          <div data-idle-ignore>
+            <Cover imageSrc={data.item.album.images[0].url} />
+          </div>
           <div className={styles.info}>
             <span className={styles.name}>{data.item.name}</span>
             <span className={styles.artists_list}>

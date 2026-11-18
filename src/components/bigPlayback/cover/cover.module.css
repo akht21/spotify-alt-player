@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  perspective: 1000px;
+  cursor: grab;
+  border-radius: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.26);
+}
+
+.container:active {
+  cursor: grabbing;
+}
+
+.cover {
+  height: calc(min(60vh, 90vw));
+  border-radius: 2rem;
+
+  transform-style: preserve-3d;
+  transition:
+    transform 0.2s ease-out,
+    box-shadow 0.2s ease;
+
+  will-change: transform;
+
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
